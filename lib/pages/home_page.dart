@@ -2,11 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:movie_tracker/components/navBar.dart';
-import 'package:movie_tracker/pages/tamilMoviespage.dart';
-import 'package:movie_tracker/pages/upcomingMoviepage.dart';
+import 'package:movie_tracker/pages/regionTrendingMovies.dart';
 import 'package:movie_tracker/utils/colors.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'popularMoviePage.dart';
+import 'movieRow.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -35,8 +34,8 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   ContainerWithGradient(500.0, 60.0, 15.0, 20.0),
                   Container4(),
-                  PopularMoviesPage(),
-                  UpcomingMoviesPage(),
+                  const MovieRow(movieType: 'popular'),
+                  const MovieRow(movieType: 'upcoming'),
                   Container5()
                 ],
               ),
@@ -58,8 +57,8 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   ContainerWithGradient(400, 32, 12, 10),
                   Container4(),
-                  PopularMoviesPage(),
-                  UpcomingMoviesPage(),
+                  const MovieRow(movieType: 'popular' ),
+                  const MovieRow(movieType: 'upcoming'),
                   Container5()
                 ],
               ),

@@ -7,7 +7,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 import '../models/view_all_movie_model.dart';
 
 class MovieGridView extends StatefulWidget {
-  final String movieType; // This will accept the movie type (popular, upcoming)
+  final String movieType;
 
   const MovieGridView({super.key, required this.movieType});
 
@@ -125,7 +125,7 @@ class _MovieGridViewState extends State<MovieGridView> {
       setState(() {
         _isLoading = false;
         if (newMovies.isNotEmpty) {
-          _movies.addAll(newMovies);
+          _movies.addAll(newMovies as Iterable<MovieList>);
           _page++;
         }
       });

@@ -9,9 +9,8 @@ class TmdbService {
   static const String _apiKey = 'e245e9ec8ac73a4f3fcbfbcd944f872d';
 
 
-  static Future<Map<String, dynamic>> getPopularMovies({int page = 1, String language = 'en-US',}) async {
-    const String endpoint = '/movie/popular';
-    final Uri url = Uri.parse('$_baseUrl$endpoint?api_key=$_apiKey&language=$language&page=$page');
+  static Future<Map<String, dynamic>> getMovies({int page = 1, String language = 'en-US', required String movieType}) async {
+    final Uri url = Uri.parse('$_baseUrl/movie/$movieType?api_key=$_apiKey&language=$language&page=$page');
 
     try {
       final response = await http.get(url);
@@ -26,22 +25,6 @@ class TmdbService {
     }
   }
 
-
-  static Future<Map<String, dynamic>> getUpcomingMovies({int page = 1, String language = 'en-US',}) async {
-    const String endpoint = '/movie/upcoming';
-    final Uri url = Uri.parse('$_baseUrl$endpoint?api_key=$_apiKey&language=$language&page=$page');
-    try {
-      final response = await http.get(url);
-
-      if (response.statusCode == 200) {
-        return json.decode(response.body);
-      } else {
-        throw Exception('Failed to load data');
-      }
-    } catch (e) {
-      throw Exception('Failed to load data: $e');
-    }
-  }
 
   static Future<List<Movie>> getTamilMovies({int page = 1, String language = 'ta'}) async {
     const String endpoint = '/discover/movie';
@@ -64,7 +47,7 @@ class TmdbService {
   }
 
 
-  static Future<List<MovieList>> getMoviesList({int page = 1, required String movieType}) async {
+  static Future<List<Movie>> getMoviesList({int page = 1, required String movieType}) async {
     String url;
 
     if (movieType == 'upcoming') {
@@ -82,7 +65,7 @@ class TmdbService {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        return List<MovieList>.from(data['results'].map((item) => MovieList.fromJson(item)));
+        return List<Movie>.from(data['results'].map((item) => Movie.fromJson(item)));
       } else {
         throw Exception('Failed to load movies: ${response.statusCode}');
       }
@@ -90,6 +73,7 @@ class TmdbService {
       throw Exception('Error fetching data: $error');
     }
   }
+
 
   static Future<List<Poster>> getBackgroundImages({required String movieId}) async {
     String endpoint = '/movie/$movieId/images';
@@ -112,20 +96,4 @@ class TmdbService {
     }
   }
 
-  static Future<Map<String, dynamic>> getMovieDetails(int movieId) async {
-    final String endpoint = '/movie/$movieId';
-    final Uri url = Uri.parse('$_baseUrl$endpoint?api_key=$_apiKey');
-
-    try {
-      final response = await http.get(url);
-
-      if (response.statusCode == 200) {
-        return json.decode(response.body);
-      } else {
-        throw Exception('Failed to load movie details');
-      }
-    } catch (e) {
-      throw Exception('Failed to load movie details: $e');
-    }
-  }
 }
