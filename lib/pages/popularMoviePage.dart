@@ -3,6 +3,7 @@ import 'package:movie_tracker/helpers/api_service.dart';
 import 'package:movie_tracker/models/movie_list_model.dart';
 import 'package:movie_tracker/utils/colors.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:movie_tracker/components/movie_grid_view.dart';
 
 class PopularMoviesPage extends StatefulWidget {
   @override
@@ -69,9 +70,17 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
       actions: [
         Padding(
           padding: EdgeInsets.only(right: actionPadRight, top: actionPadTop),
-          child: Text(
-            'View all',
-            style: TextStyle(color: Colors.black, fontSize: actionTextSize),
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MovieGridView(movieType: 'popular',)),
+              );
+              },
+            child: Text(
+              'View all',
+              style: TextStyle(color: Colors.black, fontSize: actionTextSize),
+            ),
           ),
         ),
       ],

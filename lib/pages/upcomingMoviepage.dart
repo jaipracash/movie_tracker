@@ -4,6 +4,8 @@ import 'package:movie_tracker/models/movie_list_model.dart';
 import 'package:movie_tracker/utils/colors.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
+import '../components/movie_grid_view.dart';
+
 class UpcomingMoviesPage extends StatefulWidget {
   @override
   _UpcomingMoviesPageState createState() => _UpcomingMoviesPageState();
@@ -69,9 +71,17 @@ class _UpcomingMoviesPageState extends State<UpcomingMoviesPage> {
       actions: [
         Padding(
           padding: EdgeInsets.only(right: actionPadRight, top: actionPadTop),
-          child: Text(
-            'View all',
-            style: TextStyle(color: Colors.blue, fontSize: actionFontSize),
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MovieGridView(movieType: 'upcoming',)),
+              );
+            },
+            child: Text(
+              'View all',
+              style: TextStyle(color: Colors.blue, fontSize: actionFontSize),
+            ),
           ),
         ),
       ],
