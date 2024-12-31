@@ -1,15 +1,12 @@
-#!/bin/sh
-
-# Check if Flutter is already cloned, if not, clone it
-if [ ! -d "flutter" ]; then
-  git clone https://github.com/flutter/flutter.git --branch stable --depth 1 flutter
-fi
-
-# Set Flutter environment variable
+#!/bin/bash
+# Install Flutter
+git clone https://github.com/flutter/flutter.git -b stable --depth 1
 export PATH="$PATH:`pwd`/flutter/bin"
 
-# Ensure Flutter dependencies are installed
+# Run Flutter build for web
 flutter doctor
-
-# Build the Flutter web application
+flutter clean
 flutter build web
+
+# Move build output to appropriate location
+mv build/web/* /opt/buildhome/clone/public/
