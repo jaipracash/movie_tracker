@@ -4,6 +4,7 @@ import 'package:movie_tracker/models/movie_list_model.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'dart:async';
+import 'package:movie_tracker/pages/movieDetailsPage.dart';
 
 class TamilMoviesPage extends StatefulWidget {
   @override
@@ -184,49 +185,70 @@ class _TamilMoviesPageState extends State<TamilMoviesPage> {
   }
 
   Widget desktopCarouselItem(Movie movie) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10.0),
-            child: Image.network(
-              movie.posterPath != null
-                  ? 'https://image.tmdb.org/t/p/w500/${movie.posterPath}'
-                  : 'https://via.placeholder.com/200',
-              width: 200.0,
-              height: 300.0,
-              fit: BoxFit.cover,
-            ),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MovieDetailsScreen(movieId: movie.id),
           ),
-          const SizedBox(width: 25.0),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  movie.title,
-                  style: const TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  movie.overView,
-                  style: const TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.white,
-                  ),
-                  maxLines: 4,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10.0),
+              child: Image.network(
+                movie.posterPath != null
+                    ? 'https://image.tmdb.org/t/p/w500/${movie.posterPath}'
+                    : 'https://via.placeholder.com/200',
+                width: 200.0,
+                height: 300.0,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-        ],
+            const SizedBox(width: 25.0),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    movie.title,
+                    style: const TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    movie.overView.toString(),
+                    style: const TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.white,
+                    ),
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Container(
+                    width: 80,
+                    height: 40.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Colors.yellowAccent
+                    ),
+                    child: Center(
+                      child: Text('View Info'),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -244,7 +266,7 @@ class _TamilMoviesPageState extends State<TamilMoviesPage> {
               movie.posterPath != null
                   ? 'https://image.tmdb.org/t/p/w500/${movie.posterPath}'
                   : 'https://via.placeholder.com/200',
-              width: 100.0,
+              width: 130.0,
               height: 180.0,
               fit: BoxFit.cover,
             ),
@@ -263,16 +285,41 @@ class _TamilMoviesPageState extends State<TamilMoviesPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(
-              movie.overView,
+              movie.overView.toString(),
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 14.0,
                 color: Colors.white,
               ),
-              maxLines: 7,
+              maxLines: 5,
               overflow: TextOverflow.ellipsis,
             ),
           ),
+          SizedBox(height: 7.0,),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MovieDetailsScreen(movieId: movie.id),
+                ),
+              );
+            },
+            child: Container(
+              width: 90,
+              height: 35.0,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: Color(0xFFFCC737)
+              ),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(1.0),
+                  child: Text('View Info', style: TextStyle(fontWeight: FontWeight.w500),),
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );

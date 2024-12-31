@@ -1,6 +1,6 @@
 class MovieList {
   final int id;
-  final String title;
+  final String? title;
   final String? posterPath;
 
 
@@ -13,7 +13,7 @@ class MovieList {
   factory MovieList.fromJson(Map<String, dynamic> json) {
     return MovieList(
       id: json['id'],
-      title: json['title'],
+      title: json['title'] ?? ' ',
       posterPath: json['poster_path'],
     );
   }

@@ -1,9 +1,7 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:movie_tracker/components/navBar.dart';
 import 'package:movie_tracker/pages/regionTrendingMovies.dart';
-import 'package:movie_tracker/utils/colors.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'movieRow.dart';
 
@@ -35,6 +33,7 @@ class _HomePageState extends State<HomePage> {
                   ContainerWithGradient(500.0, 60.0, 15.0, 20.0),
                   Container4(),
                   const MovieRow(movieType: 'popular'),
+                  const MovieRow(movieType: 'top_rated'),
                   const MovieRow(movieType: 'upcoming'),
                   Container5()
                 ],
@@ -55,9 +54,10 @@ class _HomePageState extends State<HomePage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  ContainerWithGradient(400, 32, 12, 10),
+                  ContainerWithGradient(420, 32, 12, 10),
                   Container4(),
                   const MovieRow(movieType: 'popular' ),
+                  const MovieRow(movieType: 'top_rated'),
                   const MovieRow(movieType: 'upcoming'),
                   Container5()
                 ],
@@ -76,7 +76,6 @@ class _HomePageState extends State<HomePage> {
       height: containerHeight,
       child: Stack(
         children: [
-          // Background image
           Positioned.fill(
             child: Image.asset(
               'assets/multipleMoviePosters.png',
@@ -98,7 +97,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          // Text content
           Align(
             alignment: Alignment.center,
             child: Column(
@@ -122,7 +120,8 @@ class _HomePageState extends State<HomePage> {
                   padding: EdgeInsets.all(15.0),
                   child: Text(
                     'Discover where to stream the latest, most popular, and upcoming movies and TV shows with FilmFeed—your ultimate entertainment guide!',
-                    style: TextStyle(fontSize: subtopicTxt, color: Colors.white54),
+                    style: TextStyle(fontSize: subtopicTxt, color: Colors.white54,),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ],
@@ -132,7 +131,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
 
   Widget Container4() {
     return Container(
@@ -144,16 +142,29 @@ class _HomePageState extends State<HomePage> {
 
   Widget Container5() {
     return Container(
+      height: 250.0,
       width: double.infinity,
-      height: 200.0,
-      color: Colors.black87,
-      child: const Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Text('© 2024 FilmFeed - The Streaming Guide - Jai', style: TextStyle(color: Colors.white, fontSize: 10),),
-          SizedBox(height: 10.0,)
-        ],
+      color: Colors.black,
+      child: const Padding(
+        padding: EdgeInsets.symmetric(vertical: 30.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              'FilmFeed',
+              style: TextStyle(
+                fontSize: 35.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            Divider(height: 1.0, color: Colors.grey, indent: 20.0, endIndent: 20.0,),
+            SizedBox(height: 20.0,),
+            Text('© FilmFeed - Made for project - Film data by TMDb.', style: TextStyle(color: Colors.white, fontSize: 11),),
+            SizedBox(height: 10.0,)
+          ],
+        ),
       ),
     );
   }
