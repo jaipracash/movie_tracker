@@ -1,12 +1,16 @@
 #!/bin/bash
-# Install Flutter
-git clone https://github.com/flutter/flutter.git -b stable --depth 1
-export PATH="$PATH:`pwd`/flutter/bin"
 
-# Run Flutter build for web
-flutter doctor
-flutter clean
+# Add Flutter to PATH
+export PATH="$PATH:$PWD/flutter/bin"
+
+# Verify Flutter installation
+flutter --version || {
+  echo "Flutter is not installed or accessible. Aborting."
+  exit 1
+}
+
+# Enable web support
+flutter config --enable-web
+
+# Build the Flutter web app
 flutter build web
-
-# Move build output to appropriate location
-mv build/web/* /opt/buildhome/clone/public/
