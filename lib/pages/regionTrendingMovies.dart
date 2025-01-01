@@ -235,10 +235,10 @@ class _TamilMoviesPageState extends State<TamilMoviesPage> {
                   ),
                   Container(
                     width: 80,
-                    height: 40.0,
+                    height: 30.0,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
-                      color: Colors.yellowAccent
+                      color: Colors.orange
                     ),
                     child: Center(
                       child: Text('View Info'),
